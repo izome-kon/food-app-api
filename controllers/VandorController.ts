@@ -33,7 +33,16 @@ export const VandorLogin = async (req: Request, res: Response, next: NextFunctio
 }
 
 export const GetVandorProfile = async (req: Request, res: Response, next: NextFunction) => {
-
+    try {
+        const vendor = req.user;
+        if (vendor) {
+            res.status(200).json({ vendor });
+        } else {
+            res.status(404).json({ message: "Vendor not found" });
+        }
+    } catch (error) {
+        next(error);
+    }
 }
 export const UpdateVandorProfile = async (req: Request, res: Response, next: NextFunction) => {
 
